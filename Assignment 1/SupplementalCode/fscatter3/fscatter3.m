@@ -22,9 +22,11 @@ function [h] = fscatter3(X,Y,Z,C,cmap);
     NX = X.x;
     clear X;
     X = NX;clear NX;
-    numclass = 256; % Number of color classes
-    %cmap = myspecmap(256);
-    cmap = hsv(256);
+    numclass = 2; % Number of color classes
+%     cmap = hsv(2);
+%     cmap = winter(2);
+    cmap = [0. 0. 0.6
+        1. 0.6 0.];
     siz = 5;
   elseif nargin == 4
     numclass = 256; % Number of color classes
@@ -84,7 +86,7 @@ for j = 1:numclass
     end
   end  
 end
-caxis([min(C) max(C)])
+caxis([min(C) max(C)]);
 axis equal;rotate3d on;view(3);
 box on
 hcb = colorbar('location','east');
