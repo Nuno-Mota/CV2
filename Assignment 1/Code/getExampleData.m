@@ -9,9 +9,10 @@ target = target.target';
 source_data.x = source(:, 1);
 source_data.y = source(:, 2);
 source_data.z = source(:, 3); clear source;
+source_data.int = zeros(size(source_data.x,1));
 
 target_data.x = target(:, 1);
 target_data.y = target(:, 2);
 target_data.z = target(:, 3); clear target;
+target_data.int = zeros(size(target_data.x,1));
 end
-
