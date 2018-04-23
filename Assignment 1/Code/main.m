@@ -6,3 +6,6 @@ path_to_data_target = "Data/target.mat";
 [source_data, target_data, plot_data] = getExampleData(path_to_data_source, path_to_data_target);
 
 fscatter3(plot_data)
+xlabel('X')
+ylabel('Y')
+zlabel('Z')
