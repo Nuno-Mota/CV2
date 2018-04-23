@@ -82,7 +82,11 @@ elseif isBinary && ~IS_NEW
    data(:) = pts;
    data = data';
 else
-   format = [format '\r \n'];
+    if strcmp(computer, "PCWIN64")
+        format = [format '\n'];
+    else
+        format = [format '\r \n'];
+    end
    C = textscan(fid,format);
 
    data = cell2mat(C);
