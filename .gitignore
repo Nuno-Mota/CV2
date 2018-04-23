@@ -9,3 +9,6 @@ Assignment 2 - v1.0.2.zip
 Assignment 2 - v1.0.2/__MACOSX/
 data_mat1.zip
 depth2cloud.zip
+*.swp
+*.DS_Store
+
