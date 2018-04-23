@@ -23,7 +23,8 @@ function [h] = fscatter3(X,Y,Z,C,cmap);
     clear X;
     X = NX;clear NX;
     numclass = 256; % Number of color classes
-    cmap = myspecmap(256);
+%     cmap = myspecmap(256);
+    cmap = hsv(256);
     siz = 5;
   elseif nargin == 4
     numclass = 256; % Number of color classes

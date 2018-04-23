@@ -1,3 +1,13 @@
-path_to_data = "Data/data/0000000000.pcd";
-data = readPcd(path_to_data)
-%fscatter3(data(:, 1), data(:, 2), data(:, 3), data(:, 4))
+clc
+%path_to_data = "Data/data/0000000000.pcd";
+path_to_data_source = "Data/source.mat";
+path_to_data_target = "Data/target.mat";
+
+source_data, target_data = getExampleData(path_to_data_source, path_to_data_target);
+
+figure, hold on
+fscatter3(source_data)
+fscatter3(target_data)
+xlabel('X')
+ylabel('Y')
+zlabel('Z')
