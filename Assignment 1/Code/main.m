@@ -3,11 +3,7 @@ clc
 path_to_data_source = "Data/source.mat";
 path_to_data_target = "Data/target.mat";
 
-source_data, target_data = getExampleData(path_to_data_source, path_to_data_target);
+[source_data, target_data] = getExampleData(path_to_data_source, path_to_data_target);
 
-figure, hold on
 fscatter3(source_data)
 fscatter3(target_data)
-xlabel('X')
-ylabel('Y')
-zlabel('Z')
