@@ -8,28 +8,32 @@ t = zeros(3,1);
 
 transformed_source = source;
 
-
+indices = knnsearch(target, transformed_source);
+nearestNeighboursTarget = transformed_source(indices,:);
+rms = sqrt(mean(sum((nearestNeighboursTarget - transformed_source).^2), 2));
+prev_rms = rms + 0.51;
+i = 1;
 % Find matching indices from transformed_source to target
 
 
 
-% while true
+while abs(prev_rms - rms) > 0.05 & i<250
+    i = i + 1;
+    prev_rms = rms;
 
-indices = knnsearch(target, transformed_source);
-nearestNeighboursTarget = transformed_source(indices,:);
+    indices = knnsearch(target, transformed_source);
+    nearestNeighboursTarget = transformed_source(indices,:);
 
-rms = sqrt(mean(sum((nearestNeighboursTarget - transformed_source).^2), 2))
+    weights = ones(size(source(:,3)));
+    [R, t] = RefineRT(nearestNeighboursTarget, target, weights);
 
-weights = ones(size(source(:,3)));
-[R, t] = RefineRT(nearestNeighboursTarget, target, weights);
+    transformed_source = transformed_source*R' + t';
 
-transformed_source = transformed_source*R' + t';
-
-indices = knnsearch(target, transformed_source);
-nearestNeighboursTarget = transformed_source(indices,:);
-rms = sqrt(mean(sum((nearestNeighboursTarget - transformed_source).^2), 2))
-    
-    
+    indices = knnsearch(target, transformed_source);
+    nearestNeighboursTarget = transformed_source(indices,:);
+    rms = sqrt(mean(sum((nearestNeighboursTarget - transformed_source).^2), 2));
+    fprintf('RMS %i: %f\n',i,abs(prev_rms - rms));
+end
 
 
 end
