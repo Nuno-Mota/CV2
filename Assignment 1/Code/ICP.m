@@ -1,6 +1,8 @@
-function [R, t] = ICP(source, target)
+function [R, t] = ICP(source, target, printing)
 %ICP Summary of this function goes here
 %   Detailed explanation goes here
+
+if nargin == 2 printing=true, end
 
 % Initialization of R and t
 R = eye(3);
@@ -30,13 +32,15 @@ while abs(prev_rms - rms) > 0.05 & i<250
     nearestNeighboursTarget = transformed_source(indices,:);
     rms = sqrt(mean(sum((nearestNeighboursTarget - transformed_source).^2), 2));
 
-    fprintf('RMS %i: %f\n',i,abs(prev_rms - rms));
+    if printing fprintf('RMS %i: %f\n',i,abs(prev_rms - rms)), end
     i = i + 1;
 end
 
 % Print final result against target value
-target(:,4) = zeros(size(target(:,3)));
-transformed_source(:,4) = ones(size(transformed_source(:,3)));
+if size(target,2) == 3
+    target(:,4) = zeros(size(target(:,3)));
+    transformed_source(:,4) = ones(size(transformed_source(:,3)));
+end
 plot = cat(1, transformed_source, target);
 
 plot_data.x = plot(:, 1);

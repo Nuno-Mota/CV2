@@ -12,4 +12,8 @@ ylabel('Y')
 zlabel('Z')
 
 figure('Name', 'Transformed Source vs. Target')
+source = load(path_to_data_source); clear path_to_data_source;
+source = source.source';
+target = load(path_to_data_target); clear path_to_data_target;
+target = target.target';
 [R, t] = ICP(source, target);
