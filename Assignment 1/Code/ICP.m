@@ -38,8 +38,8 @@ end
 
 % Print final result against target value
 if size(target,2) == 3
-    target(:,4) = zeros(size(target(:,3)));
-    transformed_source(:,4) = ones(size(transformed_source(:,3)));
+    target(:,4) = ones(size(target(:,3)));
+    transformed_source(:,4) = zeros(size(transformed_source(:,3)));
 end
 plot = cat(1, transformed_source, target);
 
