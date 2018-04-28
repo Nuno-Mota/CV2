@@ -1,4 +1,5 @@
-function res = MergingICP(frame_sampling_rate, num_images)
+function res = MergingICP(frame_sampling_rate, num_images, method)
+    if exist('method')==0; method = 'normal'; end
     if exist('num_images')==0; num_images = 99; end
     if exist('frame_sampling_rate')==0; frame_sampling_rate = 1; end
     start = frame_sampling_rate+1;
@@ -22,7 +23,8 @@ function res = MergingICP(frame_sampling_rate, num_images)
             plot_data = cat(1, plot_data, final_transformed_source);
         end
 
-        source = target;
+
+        if strcmp(method,'normal')==0; source = target; else, source = plot_data(:,1:3); end
     end
 
     plotPC(plot_data, 'Merged Data');
