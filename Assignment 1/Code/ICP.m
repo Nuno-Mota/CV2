@@ -3,7 +3,10 @@ function transformed_source = ICP(source, target, subsampling_method, ...
 %ICP Summary of this function goes here
 %   Detailed explanation goes here
 
-if nargin == 5; printing = true; end
+if exist('subsampling_method')==0; subsampling_method = 'None'; end
+if exist('percentage_of_points_to_keep_source')==0; percentage_of_points_to_keep_source = 100; end
+if exist('percentage_of_points_to_keep_target')==0; percentage_of_points_to_keep_target = 100; end
+if exist('printing')==0; printing = true; end
 
 transformed_source = source;
 
@@ -14,7 +17,7 @@ indices = knnsearch(target, transformed_source);
 nearestNeighboursTarget = transformed_source(indices,:);
 
 [ms, rms] = ms_rms(source, nearestNeighboursTarget);
-fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', 0, ms, rms)
+if printing; fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', 0, ms, rms); end
 
 
 prev_rms = rms + 10;
@@ -38,7 +41,7 @@ while abs(prev_rms - rms) > 0.0005 && i < 250
     nearestNeighboursTarget = transformed_source(indices,:);
     [ms, rms] = ms_rms(transformed_source, nearestNeighboursTarget);
 
-    if printing; fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', i, ms, rms), end
+    if printing; fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', i, ms, rms); end
     i = i + 1;
 end
 
