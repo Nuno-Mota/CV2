@@ -1,24 +1,30 @@
-function [R, t] = ICP(source, target, printing)
+function transformed_source = ICP(source, target, subsampling_method, ...
+    percentage_of_points_to_keep_source, percentage_of_points_to_keep_target, printing)
 %ICP Summary of this function goes here
 %   Detailed explanation goes here
 
-if nargin == 2 printing=true, end
-
-% Initialization of R and t
-R = eye(3);
-t = zeros(3,1);
+if nargin == 5; printing = true; end
 
 transformed_source = source;
 
+[transformed_source, target] = sumbsample(transformed_source, target, subsampling_method, ...
+    percentage_of_points_to_keep_source, percentage_of_points_to_keep_target);
+
 indices = knnsearch(target, transformed_source);
 nearestNeighboursTarget = transformed_source(indices,:);
-rms = sqrt(mean(sum((nearestNeighboursTarget - transformed_source).^2), 2));
-prev_rms = rms + 0.51;
-i = 1;
-% Find matching indices from transformed_source to target
 
-while abs(prev_rms - rms) > 0.05 & i<250
+[ms, rms] = ms_rms(source, nearestNeighboursTarget);
+fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', 0, ms, rms)
+
+
+prev_rms = rms + 10;
+i = 1;
+
+while abs(prev_rms - rms) > 0.0005 && i < 250
     prev_rms = rms;
+
+    [transformed_source, target] = sumbsample(transformed_source, target, subsampling_method, ...
+        percentage_of_points_to_keep_source, percentage_of_points_to_keep_target);
 
     indices = knnsearch(target, transformed_source);
     nearestNeighboursTarget = transformed_source(indices,:);
@@ -30,25 +36,10 @@ while abs(prev_rms - rms) > 0.05 & i<250
 
     indices = knnsearch(target, transformed_source);
     nearestNeighboursTarget = transformed_source(indices,:);
-    rms = sqrt(mean(sum((nearestNeighboursTarget - transformed_source).^2), 2));
+    [ms, rms] = ms_rms(transformed_source, nearestNeighboursTarget);
 
-    if printing fprintf('RMS %i: %f\n',i,abs(prev_rms - rms)), end
+    if printing; fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', i, ms, rms), end
     i = i + 1;
 end
 
-% Print final result against target value
-if size(target,2) == 3
-    target(:,4) = ones(size(target(:,3)));
-    transformed_source(:,4) = zeros(size(transformed_source(:,3)));
 end
-plot = cat(1, transformed_source, target);
-
-plot_data.x = plot(:, 1);
-plot_data.y = plot(:, 2);
-plot_data.z = plot(:, 3);
-plot_data.int = plot(:, 4); clear plot;
-
-fscatter3(plot_data);
-
-end
-
