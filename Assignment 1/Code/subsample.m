@@ -25,6 +25,8 @@ elseif strcmp(subsampling_method, 'Uniform') == 1
         size_target = size_target(1);
         target_points = randperm(size_target, num_points_to_keep);
         sampled_target = target(target_points, :);
+    else
+        sampled_target = target;
     end
     return
     

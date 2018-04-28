@@ -2,11 +2,14 @@ function transformed_source = ICP(source, target, subsampling_method, ...
     num_points_to_keep, subsample_target, printing)
 %ICP Summary of this function goes here
 %   Detailed explanation goes here
+if exist('subsampling_method')==0; subsampling_method = 'None'; end
+if exist('num_points_to_keep')==0; num_points_to_keep = min(size(source,1),size(target,1)); end
+if exist('subsample_target')==0; subsample_target = true; end
+if exist('printing')==0; printing = true; end
 
-if nargin == 5; printing = true; end
 
 [ms, rms] = ms_rms(source, target);
-fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', 0, ms, rms)
+if printing; fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', 0, ms, rms); end
 
 
 transformed_source = source;
@@ -20,7 +23,7 @@ while abs(prev_rms - rms) > 0.0005 && i <= 250
         [sampled_transformed_source, sampled_target] = subsample(transformed_source, target,...
             subsampling_method, num_points_to_keep, subsample_target, printing, i);
     end
-    
+
     indices = knnsearch(sampled_transformed_source, sampled_target);
     sampled_transformed_source = sampled_transformed_source(indices,:);
 

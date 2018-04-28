@@ -22,9 +22,10 @@ function [h] = fscatter3(X,Y,Z,C,cmap);
     NX = X.x;
     clear X;
     X = NX;clear NX;
-    numclass = 2; % Number of color classes
-%     cmap = hsv(2);
+%     numclass = 256; % Number of color classes
+%     cmap = hsv(256);
 %     cmap = winter(2);
+    numclass = 2;
     cmap = [0. 0. 0.6
         1. 0.6 0.];
     siz = 5;
