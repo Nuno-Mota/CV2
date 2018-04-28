@@ -24,7 +24,7 @@ function res = MergingICP(frame_sampling_rate, num_images, method)
         end
 
 
-        if strcmp(method,'normal')==0; source = target; else, source = plot_data(:,1:3); end
+        if strcmp(method,'normal')==1; source = target; else, source = plot_data(:,1:3); end
     end
 
     plotPC(plot_data, 'Merged Data');
