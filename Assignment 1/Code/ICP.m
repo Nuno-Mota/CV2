@@ -7,7 +7,7 @@ if nargin == 5; printing = true; end
 
 transformed_source = source;
 
-[transformed_source, target] = sumbsample(transformed_source, target, subsampling_method, ...
+[transformed_source, target] = subsample(transformed_source, target, subsampling_method, ...
     percentage_of_points_to_keep_source, percentage_of_points_to_keep_target);
 
 indices = knnsearch(target, transformed_source);
@@ -23,7 +23,7 @@ i = 1;
 while abs(prev_rms - rms) > 0.0005 && i < 250
     prev_rms = rms;
 
-    [transformed_source, target] = sumbsample(transformed_source, target, subsampling_method, ...
+    [transformed_source, target] = subsample(transformed_source, target, subsampling_method, ...
         percentage_of_points_to_keep_source, percentage_of_points_to_keep_target);
 
     indices = knnsearch(target, transformed_source);
