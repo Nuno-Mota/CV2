@@ -8,6 +8,6 @@ plot_data = getPlotData(source_data, target_data);
 
 plotPC(plot_data, 'Source vs. Target');
 
-final_transformed_source = ICP(source_data, target_data);
+final_transformed_source = ICP(source_data, target_data, 'Uniform');
 plot_data = getPlotData(final_transformed_source, target_data);
 plotPC(plot_data, 'Transformed Source vs. Target');

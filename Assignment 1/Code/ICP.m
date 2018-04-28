@@ -1,24 +1,17 @@
-function transformed_source = ICP(source, target, subsampling_method, ...
-    percentage_of_points_to_keep_source, percentage_of_points_to_keep_target, printing)
+function subsampled_transformed_source = ICP(source, target, subsampling_method, ...
+    number_of_points_to_keep, subsample_target, printing)
 %ICP Summary of this function goes here
 %   Detailed explanation goes here
 
 if exist('subsampling_method')==0; subsampling_method = 'None'; end
-if exist('percentage_of_points_to_keep_source')==0; percentage_of_points_to_keep_source = 100; end
-if exist('percentage_of_points_to_keep_target')==0; percentage_of_points_to_keep_target = 100; end
+if exist('number_of_points_to_keep')==0; number_of_points_to_keep = min(size(source,1),size(target,1)); end
+if exist('subsample_target')==0; subsample_target = true; end
 if exist('printing')==0; printing = true; end
 
-transformed_source = source;
+subsampled_transformed_source = source;
 
-[transformed_source, target] = subsample(transformed_source, target, subsampling_method, ...
-    percentage_of_points_to_keep_source, percentage_of_points_to_keep_target);
-
-indices = knnsearch(target, transformed_source);
-nearestNeighboursTarget = transformed_source(indices,:);
-
-[ms, rms] = ms_rms(source, nearestNeighboursTarget);
+[ms, rms] = ms_rms(source, target);
 if printing; fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', 0, ms, rms); end
-
 
 prev_rms = rms + 10;
 i = 1;
@@ -26,20 +19,20 @@ i = 1;
 while abs(prev_rms - rms) > 0.0005 && i < 250
     prev_rms = rms;
 
-    [transformed_source, target] = subsample(transformed_source, target, subsampling_method, ...
-        percentage_of_points_to_keep_source, percentage_of_points_to_keep_target);
+    if strcmp(subsampling_method, 'Random') == 1 || i == 1
+        [subsampled_transformed_source, subsampled_target] = subsample(subsampled_transformed_source, target, subsampling_method, ...
+            number_of_points_to_keep, subsample_target, printing);
+    end
 
-    indices = knnsearch(target, transformed_source);
-    nearestNeighboursTarget = transformed_source(indices,:);
+    indices = knnsearch(subsampled_target, subsampled_transformed_source);
+    nearestNeighboursTarget = subsampled_transformed_source(indices,:);
 
     weights = ones(size(source(:,3)));
-    [R, t] = RefineRT(nearestNeighboursTarget, target, weights);
+    [R, t] = RefineRT(nearestNeighboursTarget, subsampled_target, weights);
 
-    transformed_source = transformed_source*R' + t';
+    subsampled_transformed_source = subsampled_transformed_source*R' + t';
 
-    indices = knnsearch(target, transformed_source);
-    nearestNeighboursTarget = transformed_source(indices,:);
-    [ms, rms] = ms_rms(transformed_source, nearestNeighboursTarget);
+    [ms, rms] = ms_rms(subsampled_transformed_source, subsampled_target);
 
     if printing; fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', i, ms, rms); end
     i = i + 1;
