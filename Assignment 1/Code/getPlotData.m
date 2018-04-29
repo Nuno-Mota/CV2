@@ -9,5 +9,6 @@ plot_data.x = plot(:, 1);
 plot_data.y = plot(:, 2);
 plot_data.z = plot(:, 3);
 plot_data.int = plot(:, 4); clear plot;
+plot_data.n_classes = 2;
 end
 

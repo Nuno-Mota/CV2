@@ -3,7 +3,7 @@ function [total_R, total_t] = ICP(source, target, subsampling_method, ...
 %ICP Summary of this function goes here
 %   Detailed explanation goes here
 if exist('subsampling_method')==0; subsampling_method = 'None'; end
-if exist('num_points_to_keep')==0; num_points_to_keep = min(size(source,1),size(target,1)); end
+if exist('num_points_to_keep')==0 || num_points_to_keep==-1; num_points_to_keep = min(size(source,1),size(target,1)); end
 if exist('subsample_target')==0; subsample_target = true; end
 if exist('printing')==0; printing = true; end
 
@@ -28,10 +28,10 @@ while abs(prev_rms - rms) > 0.0005 && i <= 250
     end
 
     indices = knnsearch(sampled_transformed_source, sampled_target);
-    sampled_transformed_source = sampled_transformed_source(indices,:);
+    aux = sampled_transformed_source(indices,:);
 
-    weights = ones(size(sampled_transformed_source(:,3)));
-    [R, t] = RefineRT(sampled_transformed_source, sampled_target, weights);
+    weights = ones(size(aux(:,3)));
+    [R, t] = RefineRT(aux, sampled_target, weights);
     total_R = (total_R'*R')';
     total_t = (total_t'*R' + t')';
     
@@ -40,7 +40,7 @@ while abs(prev_rms - rms) > 0.0005 && i <= 250
     transformed_source = transformed_source*R' + t';
     
     [ms, rms] = ms_rms(source*total_R' + total_t', target);
-    if printing; fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', i, ms, rms), end
+    if printing; fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', i, ms, rms); end
     i = i + 1;
 end
 
