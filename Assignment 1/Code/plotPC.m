@@ -7,7 +7,8 @@ figure('Name', plot_name)
 X = plot_data.x;
 Y = plot_data.y;
 Z = plot_data.z;
-C = plot_data.int;
+% C = plot_data.int;
+C = plot_data.z;
 numclass = plot_data.n_classes;
 
 clear plot_data;
@@ -53,7 +54,7 @@ for j = 1:numclass
       o = o+1;
         hp(o) = h;
     end
-  end
+  end  
 end
 caxis([min(C) max(C)]);
 axis equal;rotate3d on;view(3);

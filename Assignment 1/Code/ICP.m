@@ -19,7 +19,7 @@ transformed_source = source;
 prev_rms = rms + 10;
 i = 1;
 
-while abs(prev_rms - rms) > 0.0005 && i <= 250
+while abs(prev_rms - rms) > 0.00005 && i <= 250
     prev_rms = rms;
 
     if strcmp(subsampling_method, 'Random') == 1 || i == 1
@@ -39,7 +39,7 @@ while abs(prev_rms - rms) > 0.0005 && i <= 250
     sampled_transformed_source = sampled_transformed_source*R' + t';
     transformed_source = transformed_source*R' + t';
     
-    [ms, rms] = ms_rms(source*total_R' + total_t', target);
+    [ms, rms] = ms_rms(transformed_source, target);
     if printing; fprintf('Iteration: %3d ||| MS : %.5f ||| RMS : %.5f\n', i, ms, rms); end
     i = i + 1;
 end
