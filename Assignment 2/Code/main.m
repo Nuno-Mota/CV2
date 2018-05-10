@@ -1,5 +1,7 @@
 clc
 
+%run Code\'Supplementary Code'\vlfeat-0.9.21\toolbox\vl_setup.m
+
 img1_number = 1;
 img2_number = 2;
 
