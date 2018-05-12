@@ -12,7 +12,6 @@ img2 = im2single(img2);
 
 
 % SHOW SIFT FEATURES AND DESCRIPTORS.
-
 % imshow(img1);
 % perm = randperm(size(f1,2)) ;
 % sel = perm(1:500) ;
@@ -26,7 +25,6 @@ img2 = im2single(img2);
 
 % 3. GET A SET OF SUPPOSED MATCHES BETWEEN REGION DESCRIPTORS IN EACH IMAGE
 [matches, scores] = vl_ubcmatch(d1, d2) ;
-
 matched_points1 = f1(1:2, matches(1, :))';
 matched_points2 = f2(1:2, matches(2, :))';
 x1 = matched_points1(:, 1);
@@ -34,6 +32,11 @@ y1 = matched_points1(:, 2);
 x2 = matched_points2(:, 1);
 y2 = matched_points2(:, 2);
 
+
+% 5. ESTIMATE THE FUNDAMENTAL MATRIX FOR THE GIVEN TWO IMAGES
+fundamental_matrix = eightPointAlgorithm(x1, y1, x2, y2);
+%fundamental_matrix = normalizedEightPointAlgorithm(x1, y1, x2, y2);
+%fundamental_matrix = normalizedEightPointAlgorithmRANSAC(x1, y1, x2, y2);
 
 
 % NO NEED TO IGNORE BACKGROUND. ONLY IF THERE IS TIME, AS IT WILL NOT BE
