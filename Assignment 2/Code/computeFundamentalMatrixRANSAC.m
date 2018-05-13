@@ -34,9 +34,9 @@ y2 = matched_points2(:, 2);
 
 
 % 5. ESTIMATE THE FUNDAMENTAL MATRIX FOR THE GIVEN TWO IMAGES
-fundamental_matrix = eightPointAlgorithm(x1, y1, x2, y2);
-%fundamental_matrix = normalizedEightPointAlgorithm(x1, y1, x2, y2);
-%fundamental_matrix = normalizedEightPointAlgorithmRANSAC(x1, y1, x2, y2);
+% fundamental_matrix = eightPointAlgorithm(x1, y1, x2, y2);
+% fundamental_matrix = normalizedEightPointAlgorithm(x1, y1, x2, y2);
+fundamental_matrix = normalizedEightPointAlgorithmRANSAC(x1, y1, x2, y2);
 
 
 % NO NEED TO IGNORE BACKGROUND. ONLY IF THERE IS TIME, AS IT WILL NOT BE

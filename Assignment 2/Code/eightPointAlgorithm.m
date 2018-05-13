@@ -4,7 +4,7 @@ function F = eightPointAlgorithm(x1, y1, x2, y2)
 A = [x1.*x2, x1.*y2, x1, y1.*x2, y1.*y2, y1, x2, y2, ones(size(x1))];
 
 % Find the SVD of A
-[U,D,V] = svd(A);
+[~,D,V] = svd(A);
 
 % The entries of F are the components of the column of V corresponding to the smallest singular value.
 [~,I] = min(max(D)); % smalles singular value 
@@ -18,6 +18,6 @@ F = reshape(V(:,I),[3,3]);
 Df(I,I) = 0;
 
 % Recompute F
-F = Uf*Df*Vf'
+F = Uf*Df*Vf';
 
 end
