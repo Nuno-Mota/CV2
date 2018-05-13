@@ -39,6 +39,7 @@ y2 = matched_points2(:, 2);
 fundamental_matrix = normalizedEightPointAlgorithmRANSAC(x1, y1, x2, y2);
 
 
+drawEpipolar(img1, img2, fundamental_matrix);
 % NO NEED TO IGNORE BACKGROUND. ONLY IF THERE IS TIME, AS IT WILL NOT BE
 % GRADED. IF WE WANT TO DO SO:
 % Option 1. Play around with SIFT hyperparameters.

@@ -1,5 +1,5 @@
 function F = normalizedEightPointAlgorithmRANSAC(x1, y1, x2, y2, threshold)
-if exist('threshold', 0); threshold = 1.0e-04; end
+if exist('threshold')==0; threshold = 1.0e-04; end
 
 % Normalization
 [x1, y1, T1] = normalizeData(x1, y1);
