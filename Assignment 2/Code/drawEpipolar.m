@@ -16,7 +16,7 @@ plot(left_x, left_y, 'r*');
 % Getting the epipolar line on the RIGHT image:
 
 left_P = [left_x; left_y; 1];
-right_P = FM*left_P
+right_P = FM*left_P;
 right_epipolar_x = 1:2*m;
 
 % Using the eqn of line: ax+by+c=0; y = (-c-ax)/b

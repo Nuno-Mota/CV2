@@ -1,10 +1,11 @@
-function img = getImageData(img_number)
+function img = getImageData(img_number, parameters)
 %GETIMAGEDATA Summary of this function goes here
 %   Detailed explanation goes here
 
-path_to_data = 'Data/';
-img_path = strcat(path_to_data, sprintf('frame%08d.png', img_number));
+
+img_path = strcat(parameters.path_to_data, sprintf('frame%08d.png', img_number));
 
 img = imread(img_path);
+
 end
 
