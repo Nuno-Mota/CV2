@@ -22,7 +22,7 @@ parameters.path_to_data = 'Assignment 2/Data/';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Choose section value from: {3.1, 3.2, 3.3, 4, 5}
-section = '4';
+section = '5';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 parameters.section = section;
@@ -58,6 +58,8 @@ elseif strcmp(section, '5')
     parameters.display_PVM = false; % (if necessary to generate new point view matrix).
     
     parameters.point_view_matrix_file = 'point_view_matrix.mat'; % Load either generated matrix with chain.m ('point_view_matrix.mat') or sample matrix ('PointViewMatrix.txt')
+    parameters.denseblock_size = 'all';
+    parameters.visualization_z_scaling = 1.5;
     
     % Function call
     structureFromMotion(parameters);

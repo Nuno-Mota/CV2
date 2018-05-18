@@ -17,5 +17,21 @@ end
 
 
 
+point_cloud = [];
+
+if strcmp(parameters.denseblock_size, 'all')
+    D = point_view_matrix;
+    D(:,any(D==0,1))=[];
+    normalised_denseD = D - sum(D, 2)/size(D, 2);
+    [~, S] = getMotionShape(normalised_denseD);
+    
+    point_cloud = S;
+    fscatter3(point_cloud(1,:), point_cloud(2,:),...
+              parameters.visualization_z_scaling*point_cloud(3,:),...
+              parameters.visualization_z_scaling*point_cloud(3,:));
+end
+
+
+
 end
 
