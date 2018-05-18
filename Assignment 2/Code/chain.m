@@ -18,6 +18,9 @@ for index_current_img=1:49
         flag_stop = true;
         img_number = 1;
     end
+    if parameters.verbose
+        fprintf('Currently working on image pair %d-%d\n', index_current_img, img_number);
+    end
 
     img_next = im2single(getImageData(img_number, parameters));
     [f2,d2] = vl_sift(img_next);
@@ -38,11 +41,13 @@ for index_current_img=1:49
     f1 = f2;
     d1 = d2;
 end
-save('Data/point_view_matrix.mat', 'point_view_matrix')
+save(strcat(parameters.path_to_data, 'point_view_matrix.mat'), 'point_view_matrix')
 
-figure(1)
-imshow(point_view_matrix)
-figure(2)
-imagesc(point_view_matrix)
+if parameters.display_PVM
+    figure(1)
+    imshow(point_view_matrix)
+    figure(2)
+    imagesc(point_view_matrix)
+end
 end
 

@@ -22,10 +22,12 @@ parameters.path_to_data = 'Assignment 2/Data/';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Choose section value from: {3.1, 3.2, 3.3, 4, 5}
-section = '4';
+section = '5';
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 parameters.section = section;
+
+parameters.verbose = true;
 
 
 if strcmp(section, '3.1') || strcmp(section, '3.2') || strcmp(section, '3.3')
@@ -45,16 +47,22 @@ if strcmp(section, '3.1') || strcmp(section, '3.2') || strcmp(section, '3.3')
 elseif strcmp(section, '4')
     % Pick desired parameters for part 4
     parameters.threshold = 1.0e-04;
+    parameters.display_PVM = true;
     
     % Function call
     chain(parameters);
 
 elseif strcmp(section, '5')
     % Pick desired parameters for part 5
-    parameters.threshold = 1.0e-04;
+    parameters.threshold = 1.0e-04; % (for RANSAC, if necessary to generate new point view matrix).
+    parameters.display_PVM = false; % (if necessary to generate new point view matrix).
+    
+    parameters.point_view_matrix_file = 'point_view_matrix.mat'; % Load either generated matrix with chain.m ('point_view_matrix.mat') or sample matrix ('PointViewMatrix.txt')
     
     % Function call
     structureFromMotion(parameters);
     
 %     error('Part 5 has not been implemented.')
+else
+    error('Section value provided (%s) is unknown. Please choose one from {3.1, 3.2, 3.3, 4, 5}. Read beginning of main.m.', section);
 end
