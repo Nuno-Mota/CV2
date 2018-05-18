@@ -47,7 +47,7 @@ if parameters.display_PVM
     figure(1)
     imshow(point_view_matrix)
     figure(2)
-    imagesc(point_view_matrix)
+    imagesc(point_view_matrix>0)
 end
 end
 
