@@ -59,15 +59,13 @@ elseif strcmp(section, '5')
     
     % TODO: When loading the sample file, points seem to be inverted on Z axis
     parameters.point_view_matrix_file = 'point_view_matrix.mat'; % Load either generated matrix with chain.m ('point_view_matrix.mat') or sample matrix ('PointViewMatrix.txt')
-    parameters.denseblock_size = '3'; % Choose from {'all', '3', '4', (or other value not specified in the assignment)}, representing the number of frames per dense block.
-    parameters.visualization_z_scaling = 1.5;
-    parameters.visualize_each_step = true;
-    parameters.replace_same_points = 'new';
+    parameters.denseblock_size = 'all'; % Choose from {'all', '3', '4', (or other value not specified in the assignment)}, representing the number of frames per dense block.
+    parameters.visualization_z_scaling = 1.5; % scaling on the z simension to better discern the 3D points
+    parameters.visualize_each_step = true; % parameter to specify whether to show the transformation on each iterative step
+    parameters.replace_same_points = 'new'; % parameter to specify whether to replace old common points to both the old point cloud and the new point cloud with pointsfrom the new point cloud. If that's not desired write anything else other than 'new'
     
     % Function call
     structureFromMotion(parameters);
-    
-%     error('Part 5 has not been implemented.')
 else
     error('Section value provided (%s) is unknown. Please choose one from {3.1, 3.2, 3.3, 4, 5}. Read beginning of main.m.', section);
 end
