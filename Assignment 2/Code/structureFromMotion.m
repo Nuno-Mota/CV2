@@ -1,5 +1,6 @@
-function structureFromMotion(parameters)
-
+function [] = structureFromMotion(parameters)
+%STRUCTUREFROMMOTION Summary of this function goes here
+%   Detailed explanation goes here
 % Load/Create point view matrix
 try
     %load('Data/point_view_matrix.mat', 'point_view_matrix');
@@ -11,3 +12,4 @@ end
 
 
 end
+
