@@ -1,7 +1,7 @@
 clc
 
 % Specify correct data path
-parameters.path_to_data = 'Data/';
+parameters.path_to_data = 'Assignment 2/Data/';
 
 % Specify the section number to run.
 % Choose from: {3.1, 3.2, 3.3, 4, 5}
@@ -15,7 +15,8 @@ parameters.path_to_data = 'Data/';
 % ---------------------parameters to configure: threshold
 %
 % ----- Part 4 - Chaining
-%---------parameters to configure: threshold (for RANSAC)
+% --------parameters to configure: threshold (for RANSAC)
+%
 % ----- Part 5 - Structure from Motion
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -38,14 +39,22 @@ if strcmp(section, '3.1') || strcmp(section, '3.2') || strcmp(section, '3.3')
         parameters.threshold = 1.0e-04;
     end
     
+    % Function call
     fundamentalMatrix(parameters);
     
 elseif strcmp(section, '4')
     % Pick desired parameters for part 4
     parameters.threshold = 1.0e-04;
+    
+    % Function call
     chain(parameters);
 
 elseif strcmp(section, '5')
     % Pick desired parameters for part 5
-    error('Part 5 has not been implemented.')
+    parameters.threshold = 1.0e-04;
+    
+    % Function call
+    structureFromMotion(parameters);
+    
+%     error('Part 5 has not been implemented.')
 end
