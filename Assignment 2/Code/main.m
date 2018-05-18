@@ -48,4 +48,5 @@ elseif strcmp(section, '4')
 elseif strcmp(section, '5')
     % Pick desired parameters for part 5
     error('Part 5 has not been implemented.')
+    structureFromMotion(parameters);
 end

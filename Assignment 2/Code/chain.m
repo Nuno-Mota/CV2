@@ -38,7 +38,7 @@ for index_current_img=1:49
     f1 = f2;
     d1 = d2;
 end
-save('Assignment 2/Data/point_view_matrix.txt', 'point_view_matrix')
+save('Data/point_view_matrix.mat', 'point_view_matrix')
 
 figure(1)
 imshow(point_view_matrix)
