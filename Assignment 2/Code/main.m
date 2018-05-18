@@ -57,9 +57,11 @@ elseif strcmp(section, '5')
     parameters.threshold = 1.0e-04; % (for RANSAC, if necessary to generate new point view matrix).
     parameters.display_PVM = false; % (if necessary to generate new point view matrix).
     
+    % TODO: When loading the sample file, points seem to be inverted on Z axis
     parameters.point_view_matrix_file = 'point_view_matrix.mat'; % Load either generated matrix with chain.m ('point_view_matrix.mat') or sample matrix ('PointViewMatrix.txt')
-    parameters.denseblock_size = 'all';
+    parameters.denseblock_size = '3'; % Choose from {'all', '3', '4', (or other value not specified in the assignment)}, representing the number of frames per dense block.
     parameters.visualization_z_scaling = 1.5;
+    parameters.visualize_each_step = true
     
     % Function call
     structureFromMotion(parameters);

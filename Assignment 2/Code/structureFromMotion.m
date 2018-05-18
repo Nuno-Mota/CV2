@@ -29,6 +29,34 @@ if strcmp(parameters.denseblock_size, 'all')
     fscatter3(point_cloud(1,:), point_cloud(2,:),...
               parameters.visualization_z_scaling*point_cloud(3,:),...
               parameters.visualization_z_scaling*point_cloud(3,:));
+          
+else
+    num_consecutive_frames = str2num(parameters.denseblock_size);
+    
+    for i = 1:2*num_consecutive_frames:size(point_view_matrix, 1)
+        
+        final_frame = i + 2*num_consecutive_frames;
+        if final_frame > size(point_view_matrix, 1)
+            final_frame = size(point_view_matrix, 1);
+        end
+        
+        D = point_view_matrix(i:final_frame, :);
+        D(:,any(D==0,1))=[];
+        normalised_denseD = D - sum(D, 2)/size(D, 2);
+        [~, S] = getMotionShape(normalised_denseD);
+
+        
+        if i == 1
+            point_cloud = S;
+        else
+            point_cloud = transformProcrustes(point_cloud, S);
+        end
+        
+        if parameters.visualize_each_step
+            plotPC(point_cloud, parameters)
+        end
+    end
+    plotPC(point_cloud, parameters)
 end
 
 
