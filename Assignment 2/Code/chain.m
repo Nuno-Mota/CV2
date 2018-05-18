@@ -40,7 +40,9 @@ for index_current_img=1:49
 end
 save('Assignment 2/Data/point_view_matrix.txt', 'point_view_matrix')
 
+figure(1)
 imshow(point_view_matrix)
-% plotPointViewMatrix(point_view_matrix);
+figure(2)
+imagesc(point_view_matrix)
 end
 
