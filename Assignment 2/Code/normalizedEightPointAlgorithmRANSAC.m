@@ -1,4 +1,4 @@
-function F = normalizedEightPointAlgorithmRANSAC(x1, y1, x2, y2, parameters)
+function [F, final_inliers] = normalizedEightPointAlgorithmRANSAC(x1, y1, x2, y2, parameters)
 if parameters.threshold > 0  threshold = parameters.threshold; else threshold = 1.0e-04; end
 
 % Normalization
@@ -8,6 +8,7 @@ if parameters.threshold > 0  threshold = parameters.threshold; else threshold = 
 % RANSAC
 num_points = size(x1, 1);
 final_inliers = [];
+% TODO: turn 100 into changable parameter?
 for i = 1:100
     % Get Fundamental Matrix of 8 random points
     random_points = randi(num_points, [8,1]);

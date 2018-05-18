@@ -15,29 +15,37 @@ parameters.path_to_data = 'Data/';
 % ---------------------parameters to configure: threshold
 %
 % ----- Part 4 - Chaining
-%
+%---------parameters to configure: threshold (for RANSAC)
 % ----- Part 5 - Structure from Motion
 
-% write section as string
-section = '3.2';
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Choose section value from: {3.1, 3.2, 3.3, 4, 5}
+section = '4';
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 parameters.section = section;
 
 
 if strcmp(section, '3.1') || strcmp(section, '3.2') || strcmp(section, '3.3')
     % Pick desired parameters for part 3
     parameters.img1_number = 1;
-    parameters.img2_number = 2;
+    parameters.img2_number = 25;
     parameters.draw_epipolar = true;
     
     if strcmp(section, '3.3')
         % Pick desired parameters for part 3.3
-        parameters.threshold = 0;
+        parameters.threshold = 1.0e-04;
     end
     
-    fundamentalMatrix(parameters)
+    fundamentalMatrix(parameters);
     
 elseif strcmp(section, '4')
     % Pick desired parameters for part 4
+    parameters.threshold = 1.0e-04;
+    chain(parameters);
+
 elseif strcmp(section, '5')
     % Pick desired parameters for part 5
+    error('Part 5 has not been implemented.')
 end
