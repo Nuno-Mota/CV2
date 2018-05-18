@@ -33,6 +33,8 @@ if strcmp(parameters.denseblock_size, 'all')
 else
     num_consecutive_frames = str2num(parameters.denseblock_size);
     
+    indices_points_kept = [];
+    
     for i = 1:2*num_consecutive_frames:size(point_view_matrix, 1)
         
         final_frame = i + 2*num_consecutive_frames;
@@ -41,15 +43,16 @@ else
         end
         
         D = point_view_matrix(i:final_frame, :);
+        new_indices = find(~any(D==0,1));
         D(:,any(D==0,1))=[];
         normalised_denseD = D - sum(D, 2)/size(D, 2);
         [~, S] = getMotionShape(normalised_denseD);
 
-        
         if i == 1
             point_cloud = S;
+            indices_points_kept = new_indices;
         else
-            point_cloud = transformProcrustes(point_cloud, S);
+            point_cloud = transformProcrustes(point_cloud, S, indices_points_kept, new_indices, parameters);
         end
         
         if parameters.visualize_each_step

@@ -61,7 +61,8 @@ elseif strcmp(section, '5')
     parameters.point_view_matrix_file = 'point_view_matrix.mat'; % Load either generated matrix with chain.m ('point_view_matrix.mat') or sample matrix ('PointViewMatrix.txt')
     parameters.denseblock_size = '3'; % Choose from {'all', '3', '4', (or other value not specified in the assignment)}, representing the number of frames per dense block.
     parameters.visualization_z_scaling = 1.5;
-    parameters.visualize_each_step = true
+    parameters.visualize_each_step = true;
+    parameters.replace_same_points = 'new';
     
     % Function call
     structureFromMotion(parameters);
