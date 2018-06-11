@@ -41,14 +41,14 @@
 
 const float MAX_DEPTH = 1.0; 
 
-const int   POISSON_DEPTH = 7;
-const float POISSON_SCALE = 1.5;
-const int   POISSON_SAMPLES_PER_NODE = 10;
+const int   POISSON_DEPTH = 14;
+const float POISSON_SCALE = 1.25;
+const int   POISSON_SAMPLES_PER_NODE = 20;
 
-const int   MC_GRID_RESOLUTION = 25;
+const int   MC_GRID_RESOLUTION = 100;
 
-const float OCTREE_RESOLUTION = 0.05f;
-const float FOCAL_LENGTH_MULTIPLIER = 3.5f;
+const float OCTREE_RESOLUTION = 0.025f;
+const float FOCAL_LENGTH_MULTIPLIER = 3.8f;
 
 // Create viewer
 pcl::visualization::PCLVisualizer viewer("Simple Cloud Viewer");
